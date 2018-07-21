@@ -1,0 +1,11 @@
+-r requirements.txt
+
+coverage
+coveralls
+django-slowdown
+factory_boy
+py
+pytest-django
+pytest-pythonpath
+pytest
+transifex-client

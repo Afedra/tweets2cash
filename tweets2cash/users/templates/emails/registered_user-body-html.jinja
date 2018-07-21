@@ -1,0 +1,25 @@
+{% extends "emails/hero-body-html.jinja" %}
+
+{% block body %}
+<table border="0" width="100%" cellpadding="0" cellspacing="0" class="table-body">
+    <tr>
+        {% trans %}
+        <td>
+            <h2>Thank you for registering in Tweets2Cash</h2>
+            <h3>We hope you enjoy it</h3>
+            <p>We built it to be beautiful, elegant, simple to use and fun - without forsaking flexibility and power.</p>
+            <small>The Tweets2Cash Team</small>
+        </td>
+        {% endtrans %}
+    </tr>
+</table>
+{% endblock %}
+
+{% block footer %}
+    {{ super() }}
+    <br />
+    <br />
+    {% trans url=resolve_front_url('cancel-account', cancel_token) %}
+    <strong>You may remove your account from this service</strong> <a href="{{ url }}" title="Remove your account" style="color: #9dce0a">clicking here</a>
+    {% endtrans %}
+{% endblock %}

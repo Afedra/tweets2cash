@@ -1,0 +1,24 @@
+language: python
+python:
+  - "3.4"
+  - "3.5"
+addons:
+  postgresql: "9.6"
+services:
+  - rabbitmq
+  - postgresql
+cache:
+  - apt
+  - pip
+before_install:
+  - sudo apt-get -qq update
+  - sudo /etc/init.d/postgresql stop
+  - sudo apt-get install -y postgresql-plpython-9.6
+  - sudo /etc/init.d/postgresql start 9.6
+  - psql -c 'create database tweets2cash;' -U postgres
+install:
+  - travis_retry pip install -r requirements-devel.txt
+script:
+  - travis_retry coverage run --source=. --omit='*tests*,*commands*,*migrations*,*admin*,*.jinja,*settings*,*wsgi*' -m py.test -v --tb=native
+after_success:
+  - coveralls

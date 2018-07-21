@@ -1,0 +1,113 @@
+# -*- coding: utf-8 -*-
+
+from .development import *
+import sys, os
+from decouple import config, Csv
+
+# Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+#########################################
+## GENERIC
+#########################################
+
+DEBUG = config('DEBUG', default=False, cast=bool)
+
+ADMINS = (
+    (u'Admin', 'admin@martne.com'),
+)
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': config('DB_NAME'),
+        'USER': config('DB_USER'),
+        'PASSWORD': config('DB_PASSWORD'),
+        'HOST': config('DB_HOST'),
+        'PORT': config('DB_PORT'),
+    }
+}
+
+#########################################
+## CELERY
+#########################################
+# Set to True to enable celery and work in async mode or False
+# to disable it and work in sync mode. You can find the celery
+# settings in settings/celery.py and settings/celery-local.py
+CELERY_ENABLED = config('CELERY_ENABLED', default=True, cast=bool)
+
+SITES = {
+   "website": {
+      "scheme": "https",
+      "domain": "tweets2cash.com",
+      "name": "website"
+   },
+}
+
+SITE_ID = "website"
+
+# The absolute url is mandatory because attachments
+# urls depends on it. On production should be set
+# something like https://media.tweets2cash.com/
+MEDIA_URL = "https://tweets2cash.com/media/"
+STATIC_URL = "https://tweets2cash.com/static/"
+
+# Static configuration.
+MEDIA_ROOT = os.path.join(BASE_DIR, "media")
+STATIC_ROOT = os.path.join(BASE_DIR, "static")
+
+#########################################
+## THROTTLING
+#########################################
+
+REST_FRAMEWORK["DEFAULT_THROTTLE_RATES"] = {
+   "anon-write": "60/min",
+   "user-write": None,
+   "anon-read": None,
+   "user-read": None,
+   "login-fail": None,
+   "register-success": None,
+   "user-detail": None,
+   "user-update": None,
+}
+
+# This list should containt:
+#  - users IDs
+#  - Valid clients IP addresses (X-Forwarded-For header)
+REST_FRAMEWORK["DEFAULT_THROTTLE_WHITELIST"] = []
+
+
+#########################################
+## MAIL SYSTEM SETTINGS
+#########################################
+
+# EMAIL SETTINGS EXAMPLE
+MANAGERS = ADMINS
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = config('EMAIL_HOST')
+EMAIL_PORT = config('EMAIL_PORT', cast=int)
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')
+EMAIL_USE_SSL = config('EMAIL_USE_SSL', cast=bool)
+DEFAULT_FROM_EMAIL = config('DEFAULT_FROM_EMAIL')
+EMAIL_SUBJECT_PREFIX = config('EMAIL_SUBJECT_PREFIX')
+
+
+#########################################
+## REGISTRATION
+#########################################
+
+PUBLIC_REGISTER_ENABLED = config('PUBLIC_REGISTER_ENABLED', default=True, cast=bool)
+
+# LIMIT ALLOWED DOMAINS FOR REGISTER AND INVITE
+# None or [] values in USER_EMAIL_ALLOWED_DOMAINS means allow any domain
+USER_EMAIL_ALLOWED_DOMAINS = ALLOWED_HOSTS = config('USER_EMAIL_ALLOWED_DOMAINS', default=None, cast=Csv())
+
+#########################################
+## SITEMAP
+#########################################
+
+# If is True /front/sitemap.xml show a valid sitemap of tweets2cash client
+FRONT_SITEMAP_ENABLED = config('FRONT_SITEMAP_ENABLED', default=True, cast=bool)
+FRONT_SITEMAP_CACHE_TIMEOUT = config('FRONT_SITEMAP_CACHE_TIMEOUT', cast=int)  # In second

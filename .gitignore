@@ -1,0 +1,75 @@
+db.sqlite3
+media
+static
+.tags
+.*.sw*
+.#*
+*.log
+*.pid
+settings/local.py
+database.sqlite
+logs
+celerybeat-schedule
+# Node
+node_modules
+# SASS
+.sass-cache
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+
+# C extensions
+*.so
+
+# java extensions
+*.jar
+
+# Distribution / packaging
+.Python
+env/
+bin/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# Mr Developer / eclipse pydev
+.project
+.pydevproject
+.settings
+.vscode
+
+# Django stuff:
+*.log
+*.pot
+
+# Pycharm
+.idea
+
+# Vim
+*~
+*.swp
+*.swo
+
+# Tx
+.transifexrc
