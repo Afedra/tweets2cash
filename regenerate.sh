@@ -27,16 +27,6 @@ createdb tweets2cash
 
 echo "->Installing Requirements"
 sudo pip3 install requirements.txt
-echo "->Setting up TWITTER_CONSUMER_KEY"
-export TWITTER_CONSUMER_KEY="hkHJOSR0AJu9Y6Aklup2NFyE2"
-echo "->Setting up TWITTER_CONSUMER_SECRET"
-export TWITTER_CONSUMER_SECRET="mRtao55eHZRJFGY1eKVkqvGBAGXLwpIIJ7MHfVNaYMJbOYALhB"
-echo "->Setting up TWITTER_ACCESS_TOKEN"
-export TWITTER_ACCESS_TOKEN="854666544772775937-zG37GMvK4qGuxeBt4LKo1KU9g7BKCwd"
-echo "->Set TWITTER_ACCESS_TOKEN_SECRET"
-export TWITTER_ACCESS_TOKEN_SECRET=" LF6eYY7UlzYurSewwsBnheGpJRsLMWnBA2yvv9OGm76QM"
-echo "->Set GOOGLE_APPLICATION_CREDENTIALS"
-export GOOGLE_APPLICATION_CREDENTIALS="~/tweets2cash/settings/Tweets2Cash-cf8479ee7ccf.json"
 echo "-> Load migrations"
 python3 manage.py makemigrations
 echo "-> Migrating"
@@ -71,9 +61,9 @@ sudo apt-get install libpq-dev python-dev
 sudo apt-get install supervisor
 sudo mv /webapps/tweets2cash/tweets2cash-master/tweets2cash.conf /etc/supervisor/conf.d/tweets2cash.conf
 mkdir -p /webapps/tweets2cash/logs/
-touch /webapps/tweets2cash/logs/gunicorn_supervisor.log 
-touch /webapps/tweets2cash/logs/nginx-access.log 
-touch /webapps/tweets2cash/logs/nginx-error.log 
+touch /webapps/tweets2cash/logs/gunicorn_supervisor.log
+touch /webapps/tweets2cash/logs/nginx-access.log
+touch /webapps/tweets2cash/logs/nginx-error.log
 sudo supervisorctl reread
 sudo supervisorctl update
 sudo supervisorctl status tweets2cash
@@ -84,5 +74,3 @@ sudo mv /webapps/tweets2cash/tweets2cash-master/ssl/tweets2cash_cert_chain.crt /
 sudo mv /webapps/tweets2cash/tweets2cash-master/tweets2cash.txt /etc/nginx/sites-available/tweets2cash
 sudo ln -s /etc/nginx/sites-available/tweets2cash /etc/nginx/sites-enabled/tweets2cash
 sudo service nginx restart
-
-
